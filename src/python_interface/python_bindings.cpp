@@ -2,7 +2,7 @@
 #include "simulator/simulator.hpp"
 #include "util/grampc_s_constants.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 PYBIND11_MODULE(_core, m)
 {

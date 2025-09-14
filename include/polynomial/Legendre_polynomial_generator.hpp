@@ -16,7 +16,7 @@
 #include <algorithm>
 #include "orthogonal_polynomial_generator.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Generator for univariate Legendre polynomials with measure 1/2
     class LegendrePolynomialGenerator : public OrthogonalPolynomialGenerator

@@ -16,7 +16,7 @@
 #include "util/grampc_s_constants.hpp"
 #include "polynomial.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Multivariate polynomial defined by a product of univariate polynomials. 
     class MultivariatePolynomial

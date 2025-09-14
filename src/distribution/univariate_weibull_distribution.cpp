@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_weibull_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateWeibullDistribution::UnivariateWeibullDistribution(typeRNum a, typeRNum b)
         : Distribution(Vector::Constant(1, 1, b * std::tgamma(1.0 + 1.0 / a)), 

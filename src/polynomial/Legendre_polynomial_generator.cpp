@@ -12,10 +12,10 @@
 
 #include "polynomial/Legendre_polynomial_generator.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     LegendrePolynomialGenerator::LegendrePolynomialGenerator(typeInt maxOrder)
-    : legendrePolynomials(std::vector<grampc::PolynomialPtr>(std::max(1, maxOrder) + 1)),
+    : legendrePolynomials(std::vector<grampc_s::PolynomialPtr>(std::max(1, maxOrder) + 1)),
       legendreSquaredNorm(Vector::Zero(std::max(1, maxOrder) + 1))
     {
         // vector of polynomial coefficients

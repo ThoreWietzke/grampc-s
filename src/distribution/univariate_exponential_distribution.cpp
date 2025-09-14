@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_exponential_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateExponentialDistribution::UnivariateExponentialDistribution(typeRNum lambda)
         : Distribution(Vector::Constant(1, 1, 1.0 / lambda), 

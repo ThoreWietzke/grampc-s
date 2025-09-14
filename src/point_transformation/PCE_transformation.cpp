@@ -12,7 +12,7 @@
 
 #include "point_transformation/PCE_transformation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     PCE_Transformation::PCE_Transformation(typeInt dimX, typeInt dimY, const std::vector<PolynomialFamily>& polyFamily, typeInt maxPolyOrder, const Eigen::Ref<const Eigen::Vector<typeInt, Eigen::Dynamic>>& quadratureOrder)
     : dimX_(dimX),

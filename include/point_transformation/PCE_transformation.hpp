@@ -18,7 +18,7 @@
 #include "polynomial/multivariate_polynomial.hpp"
 #include "polynomial/orthogonal_polynomial_generator.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Point transformation using polynomial chaos expansion and Gaussian quadrature
     class PCE_Transformation : public PointTransformation

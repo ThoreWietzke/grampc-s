@@ -12,7 +12,7 @@
 
 #include "point_transformation/stirling_interpolation_second_order.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     StirlingInterpolationSecondOrder::StirlingInterpolationSecondOrder(typeInt dimX, typeInt dimY, typeRNum stepSize, const std::vector<bool>& considerUncertain)
     : dimX_(dimX),

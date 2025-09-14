@@ -12,7 +12,7 @@
 
 #include "constraint_approx/chebyshev_constraint_approximation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     ChebyshevConstraintApproximation::ChebyshevConstraintApproximation(const Vector& probabilities)
     : probabilities_(probabilities),

@@ -16,7 +16,7 @@
 #include "distribution.hpp"
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Multivariate distribution consisting of multiple (univariate or multivariate) uncorrelated distributions p(x) = p_1(x_1) * p_2(x_2) * p_3(x_3) ...
     class MultivariateDistribution : public Distribution

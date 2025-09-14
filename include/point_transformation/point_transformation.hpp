@@ -15,7 +15,7 @@
 
 #include "distribution/distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Transformation between a distribution and points that represent the distribution
     class PointTransformation

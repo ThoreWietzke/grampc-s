@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate Weibull distribution p(x) = a/b * (x/b)^(a−1) * exp(−(x/b)^a) for x > 0
     class UnivariateWeibullDistribution : public Distribution

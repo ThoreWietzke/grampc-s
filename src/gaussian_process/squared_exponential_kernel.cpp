@@ -12,7 +12,7 @@
 
 #include "gaussian_process/squared_exponential_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     SquaredExponentialKernel::SquaredExponentialKernel(typeInt dimInput, typeRNum sigma, const std::vector<typeRNum>& lengthScale)
     : dimInput_(dimInput),

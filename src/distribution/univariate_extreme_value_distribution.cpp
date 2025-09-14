@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_extreme_value_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateExtremeValueDistribution::UnivariateExtremeValueDistribution(typeRNum a, typeRNum b)
         : Distribution(Vector::Constant(1, 1, a + b * EULER_MASCHERONI_CONSTANT), 

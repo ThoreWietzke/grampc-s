@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_f_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateFDistribution::UnivariateFDistribution(typeRNum m, typeRNum n)
         : Distribution(Vector::Constant(1, 1, n / (n - 2.0)), 

@@ -15,7 +15,7 @@
 
 #include "chance_constraint_approximation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Chance constraint approximation using the Chebyshev inequality
     class ChebyshevConstraintApproximation : public ChanceConstraintApproximation

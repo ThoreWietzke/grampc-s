@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate piecewise constant distribution. The intervalLimits vector starts with the beginning of the first interval and ends with the end of the last interval
     class UnivariatePiecewiseConstantDistribution : public Distribution

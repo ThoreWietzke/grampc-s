@@ -18,7 +18,7 @@
 #include "distribution/multivariate_uncorrelated_distribution.hpp"
 #include "gaussian_process/gaussian_process.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Interface to GRAMPC using a point-based approximation of the uncertainties with a GP-model of unknown parts of the system dynamics
     class ResamplingGPProblemDescription : public ProblemDescription

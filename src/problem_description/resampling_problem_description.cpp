@@ -12,7 +12,7 @@
 
 #include "problem_description/resampling_problem_description.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     ResamplingProblemDescription::ResamplingProblemDescription(ProblemDescriptionPtr problemDescription, ChanceConstraintApproximationConstPtr constraintApproximation,
                                                                PointTransformationPtr pointTransformation, MatrixConstRef diffMatrixWienerProcess)

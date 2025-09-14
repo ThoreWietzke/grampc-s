@@ -12,7 +12,7 @@
 
 #include "problem_description/sigma_point_problem_description.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     SigmaPointProblemDescription::SigmaPointProblemDescription(ProblemDescriptionPtr problemDescription, ChanceConstraintApproximationConstPtr constraintApproximation,
                                  PointTransformationPtr pointTransformation)

@@ -12,7 +12,7 @@
 
 #include "gaussian_process/periodic_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     PeriodicKernel::PeriodicKernel(typeInt dimInput, typeRNum sigma, const std::vector<typeRNum>& lengthScale, const std::vector<typeRNum>& period)
     : dimInput_(dimInput),

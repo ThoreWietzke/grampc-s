@@ -15,7 +15,7 @@
 
 #include "problem_description/problem_description.hpp"
 
-namespace grampc
+namespace grampc_s
 {
 
 	/** C++ interface for GRAMPC solver */

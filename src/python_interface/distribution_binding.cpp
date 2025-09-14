@@ -14,7 +14,7 @@
 #include "distribution/univariate_f_distribution.hpp"
 #include "distribution/univariate_beta_distribution.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 template<typename Class>
 py::class_<Class, Distribution, std::shared_ptr<Class>> create_distribution(py::module_ &m, const std::string class_name)

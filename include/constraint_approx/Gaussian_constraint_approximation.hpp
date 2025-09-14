@@ -15,7 +15,7 @@
 
 #include "chance_constraint_approximation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Chance constraint approximation assuming a Gaussian distribution of the constraints
     class GaussianConstraintApproximation : public ChanceConstraintApproximation

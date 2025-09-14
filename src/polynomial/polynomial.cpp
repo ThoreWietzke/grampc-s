@@ -13,7 +13,7 @@
 #include <unsupported/Eigen/Polynomials>
 #include "polynomial/polynomial.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     Polynomial::Polynomial()
         : numCoefficients_(0)

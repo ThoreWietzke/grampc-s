@@ -17,7 +17,7 @@
 #include <fstream>
 #include "gaussian_process/stationary_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Zero-mean Gaussian processes with univariate output
     class GaussianProcess

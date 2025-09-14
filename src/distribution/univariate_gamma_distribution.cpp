@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_gamma_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateGammaDistribution::UnivariateGammaDistribution(typeRNum alpha, typeRNum beta)
         : Distribution(Vector::Constant(1, 1, alpha / beta), 

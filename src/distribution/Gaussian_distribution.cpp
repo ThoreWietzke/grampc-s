@@ -12,7 +12,7 @@
 
 #include "distribution/Gaussian_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     GaussianDistribution::GaussianDistribution(VectorConstRef mean, MatrixConstRef covariance)
         : Distribution(mean, covariance, std::vector<PolynomialFamily>(mean.rows(), PolynomialFamily::HERMITE)),

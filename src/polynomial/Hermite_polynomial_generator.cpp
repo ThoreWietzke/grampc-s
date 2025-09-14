@@ -12,10 +12,10 @@
 
 #include "polynomial/Hermite_polynomial_generator.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     HermitePolynomialGenerator::HermitePolynomialGenerator(typeInt maxOrder)
-    : hermitePolynomials(std::vector<grampc::PolynomialPtr>(std::max(1, maxOrder) + 1)),
+    : hermitePolynomials(std::vector<grampc_s::PolynomialPtr>(std::max(1, maxOrder) + 1)),
       hermiteSquaredNorm(Vector::Zero(std::max(1, maxOrder) + 1))
     {
         // vector of polynomial coefficients

@@ -9,7 +9,7 @@
 #include "gaussian_process/kernel_sum.hpp"
 #include "gaussian_process/kernel_product.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 template<typename Class>
 py::class_<Class, StationaryKernel, std::shared_ptr<Class>> create_kernel(py::module_ &m, const std::string class_name)

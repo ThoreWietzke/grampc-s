@@ -14,7 +14,7 @@
 
 #include "gaussian_process/stationary_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     class SquaredExponentialKernel : public StationaryKernel
     {

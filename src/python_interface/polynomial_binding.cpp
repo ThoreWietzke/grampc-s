@@ -5,7 +5,7 @@
 #include "polynomial/Hermite_polynomial_generator.hpp"
 #include "polynomial/Legendre_polynomial_generator.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 void init_polynomial(py::module_ &m)
 {

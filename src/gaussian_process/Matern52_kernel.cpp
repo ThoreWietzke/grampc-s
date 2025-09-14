@@ -12,7 +12,7 @@
 
 #include "gaussian_process/Matern52_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     Matern52Kernel::Matern52Kernel(typeInt dimInput, typeRNum sigma, const std::vector<typeRNum>& lengthScale)
     : dimInput_(dimInput),

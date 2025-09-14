@@ -12,7 +12,7 @@
 
 #include "distribution/distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     Distribution::Distribution(typeInt dim)
         : dim_(dim),

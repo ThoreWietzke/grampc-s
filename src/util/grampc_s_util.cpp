@@ -12,7 +12,7 @@
 
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     long long factorial(long long n)
     {

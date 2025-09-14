@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate uniform distribution p(x) = 1 / (upperBound - lowerBound) for lowerBound < x < upperBound
     class UnivariateUniformDistribution : public Distribution

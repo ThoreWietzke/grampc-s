@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_uniform_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateUniformDistribution::UnivariateUniformDistribution(typeRNum lowerBound, typeRNum upperBound)
         : Distribution(Vector::Constant(1, 1, (lowerBound + upperBound) * 0.5), 

@@ -15,7 +15,7 @@
 
 #include "point_transformation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Transformation using stochastic sampling points
     class MonteCarloTransformation : public PointTransformation

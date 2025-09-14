@@ -12,7 +12,7 @@
 
 #include "point_transformation/monte_carlo.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     MonteCarloTransformation::MonteCarloTransformation(typeInt dimX, typeInt dimY, typeInt numberOfPoints, const RandomNumberGenerator& rng)
     : dimX_(dimX),

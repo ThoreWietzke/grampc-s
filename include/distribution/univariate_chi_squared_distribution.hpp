@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate chi-squared distribution p(x) = (x^(n/2 - 1) * exp(-x/2)) / (gamma(n/2) * 2^(n/2)) with n > 0, x > 0
     class UnivariateChiSquaredDistribution : public Distribution

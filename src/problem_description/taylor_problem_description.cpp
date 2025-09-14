@@ -12,7 +12,7 @@
 
 #include "problem_description/taylor_problem_description.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     TaylorProblemDescription::TaylorProblemDescription(ProblemDescriptionPtr problemDescription, ChanceConstraintApproximationConstPtr constraintApproximation, MatrixConstRef diffMatrixWienerProcess)
         : problemDescription_(problemDescription),

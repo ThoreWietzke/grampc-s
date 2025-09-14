@@ -13,7 +13,7 @@
 #include <unsupported/Eigen/Polynomials>
 #include "point_transformation/quadrature_rules/Legendre_quadrature.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     LegendreQuadrature::LegendreQuadrature(typeInt quadratureOrder)
       : pointsNormalized_(quadratureOrder),

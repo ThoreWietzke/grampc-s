@@ -14,7 +14,7 @@
 
 #include "util/grampc_s_constants.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Stationary covariance function of a Gaussian process
     class StationaryKernel

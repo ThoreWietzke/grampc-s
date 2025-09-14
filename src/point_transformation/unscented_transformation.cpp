@@ -12,7 +12,7 @@
 
 #include "point_transformation/unscented_transformation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnscentedTransformation::UnscentedTransformation(typeInt dimX, typeInt dimY, typeRNum alpha, typeRNum beta, typeRNum kappa, const std::vector<bool>& considerUncertain)
     : alpha_(alpha),

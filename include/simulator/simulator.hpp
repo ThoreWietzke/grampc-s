@@ -17,7 +17,7 @@
 #include "point_transformation/monte_carlo.hpp"
 #include "distribution/multivariate_uncorrelated_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     class Simulator 
     {

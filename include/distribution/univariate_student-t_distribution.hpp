@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate student-t distribution p(x) = 1/(sigma * sqrt(nu*pi)) * gamma((nu+1)/2) / gamma(nu/2) * (1 + ((x-mu)/sigma)^2 / nu)^(−(nu+1)/2) with nu > 2, location parameter mu, and scale parameter sigma
     class UnivariateStudentTDistribution : public Distribution

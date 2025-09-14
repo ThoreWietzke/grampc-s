@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate beta distribution p(x) = 1 / B(p, q) * x^(p-1) * (1 - x)^(q - 1) with 0 < x < 1, p > 0, q > 0
     class UnivariateBetaDistribution : public Distribution

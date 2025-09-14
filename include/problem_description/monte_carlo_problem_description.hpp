@@ -17,7 +17,7 @@
 #include "constraint_approx/chance_constraint_approximation.hpp"
 #include "distribution/multivariate_uncorrelated_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Interface to GRAMPC using a Monte-Carlo simulation to represent the uncertainties, which ensures constraint satisfaction for all sampling points
     class MonteCarloProblemDescription : public ProblemDescription

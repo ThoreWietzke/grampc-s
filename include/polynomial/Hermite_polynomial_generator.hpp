@@ -17,7 +17,7 @@
 #include "orthogonal_polynomial_generator.hpp"
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Generator for univariate Hermite polynomials with measure 1/sqrt(2*pi) * exp(-x^2 / 2) 
     class HermitePolynomialGenerator : public OrthogonalPolynomialGenerator

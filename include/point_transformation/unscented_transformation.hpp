@@ -16,7 +16,7 @@
 #include "point_transformation.hpp"
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Uncented transformation
     class UnscentedTransformation : public PointTransformation

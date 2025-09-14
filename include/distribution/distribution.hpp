@@ -16,7 +16,7 @@
 #include "grampc_interface/grampc_interface.hpp"
 #include "util/grampc_s_constants.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Probability distribution with corresponding polynomial family for Gaussian quadrature
     class Distribution

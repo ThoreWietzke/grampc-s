@@ -4,7 +4,7 @@
 #include "constraint_approx/chebyshev_constraint_approximation.hpp"
 #include "constraint_approx/symmetric_constraint_approximation.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 template<typename Class>
 void create_constraint(py::module_ &m, const std::string class_name)

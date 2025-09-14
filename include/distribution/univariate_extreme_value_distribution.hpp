@@ -17,7 +17,7 @@
 #include "distribution.hpp"
 #include "util/grampc_s_constants.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate extreme value distribution p(x) = 1 / b * exp((a − x) / b − exp((a − x) / b))
     class UnivariateExtremeValueDistribution : public Distribution

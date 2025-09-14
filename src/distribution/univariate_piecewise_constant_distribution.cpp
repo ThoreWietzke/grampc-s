@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_piecewise_constant_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariatePiecewiseConstantDistribution::UnivariatePiecewiseConstantDistribution(const std::vector<typeRNum>& intervalLimits, const std::vector<typeRNum>& intervalProbabilityDensity)
         : Distribution(Vector::Constant(1, 1, mean(intervalLimits, intervalProbabilityDensity)), 

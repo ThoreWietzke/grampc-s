@@ -12,7 +12,7 @@
 
 #include "constraint_approx/symmetric_constraint_approximation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     SymmetricConstraintApproximation::SymmetricConstraintApproximation(const Vector& probabilities)
     : probabilities_(probabilities),

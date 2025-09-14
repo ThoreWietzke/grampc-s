@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_student-t_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateStudentTDistribution::UnivariateStudentTDistribution(typeRNum nu, typeRNum mu, typeRNum sigma)
         : Distribution(Vector::Constant(1, 1, mu), 

@@ -22,7 +22,7 @@ extern "C"
 #include "grampc.h"
 }
 
-namespace grampc
+namespace grampc_s
 {
     // mathematical constants
     constexpr typeRNum EULER_MASCHERONI_CONSTANT = 0.57721566490153286060;

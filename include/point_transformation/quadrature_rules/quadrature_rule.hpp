@@ -15,7 +15,7 @@
 #include "util/grampc_s_constants.hpp"
 
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate quadrature rule
     class QuadratureRule

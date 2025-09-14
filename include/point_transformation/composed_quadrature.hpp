@@ -17,7 +17,7 @@
 #include "quadrature_rules/quadrature_rule.hpp"
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Quadrature rule for a multivariate distribution using the product rule for combination of the one-dimensional quadrature rules
     class ComposedQuadrature : public PointTransformation

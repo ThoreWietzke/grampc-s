@@ -18,7 +18,7 @@
 #include "constraint_approx/chebyshev_constraint_approximation.hpp"
 #include "distribution/multivariate_uncorrelated_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Interface to GRAMPC using a first order Taylor series approximation for uncertainty propagation
     class TaylorProblemDescription : public ProblemDescription

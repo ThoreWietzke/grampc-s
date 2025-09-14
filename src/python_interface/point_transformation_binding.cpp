@@ -7,7 +7,7 @@
 #include "point_transformation/stirling_interpolation_second_order.hpp"
 #include "point_transformation/composed_quadrature.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 template<typename Class>
 void transform_methods(py::class_<Class, PointTransformation, std::shared_ptr<Class>> &cls)

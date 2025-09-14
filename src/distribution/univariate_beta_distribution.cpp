@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_beta_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateBetaDistribution::UnivariateBetaDistribution(typeRNum p, typeRNum q)
         : Distribution(Vector::Constant(1, 1, p / (p + q)), 

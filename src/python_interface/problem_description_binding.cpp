@@ -5,7 +5,7 @@
 #include "problem_description/sigma_point_problem_description.hpp"
 #include "problem_description/taylor_problem_description.hpp"
 
-using namespace grampc;
+using namespace grampc_s;
 
 void init_problem_descriptions(py::module_ &m)
 {

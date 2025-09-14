@@ -18,7 +18,7 @@
 #include "constraint_approx/chebyshev_constraint_approximation.hpp"
 #include "distribution/multivariate_uncorrelated_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Interface to GRAMPC using a point-based approximation of the uncertainties
     class ResamplingProblemDescription : public ProblemDescription

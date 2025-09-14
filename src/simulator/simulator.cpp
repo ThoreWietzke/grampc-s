@@ -12,7 +12,7 @@
 
 #include "simulator/simulator.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     Simulator::Simulator(VectorConstRef initialState, VectorConstRef param, typeInt numberOfControls, const SystemFct &systemFct, const std::string& integrator, MatrixConstRef diffMatrixWienerProcess,
                   typeRNum t0, typeRNum dt_MPC, typeRNum dt_simulation, typeBoolean writeDataToFile)

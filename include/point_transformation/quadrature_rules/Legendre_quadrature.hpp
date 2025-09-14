@@ -16,7 +16,7 @@
 #include "quadrature_rule.hpp"
 
 
-namespace grampc
+namespace grampc_s
 {
     // Gauss–Legendre quadrature for a univariate uniform distribution, the measures of the Legendre polynomials is 1/2
     class LegendreQuadrature : public QuadratureRule

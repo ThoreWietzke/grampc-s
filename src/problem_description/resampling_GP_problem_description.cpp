@@ -12,7 +12,7 @@
 
 #include "problem_description/resampling_GP_problem_description.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     ResamplingGPProblemDescription::ResamplingGPProblemDescription(ProblemDescriptionPtr problemDescription, ChanceConstraintApproximationConstPtr constraintApproximation,
                                                     PointTransformationPtr pointTransformation, const std::vector<GaussianProcessPtr>& gaussianProcessVec, const std::vector<typeInt>& dynamicsIndicesWithGP)

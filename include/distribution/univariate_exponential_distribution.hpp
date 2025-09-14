@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate exponential distribution p(x) = lambda * exp(-lambda * x) with lambda > 0, x >= 0
     class UnivariateExponentialDistribution : public Distribution

@@ -16,7 +16,7 @@
 #include "distribution.hpp"
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Multivariate Gaussian distribution p(x) = (2*pi)^(-d/2) * det(Sigma)^(-1/2) * exp(-1/2 * (x - mu)^T * Sigma^(-1) * (x - mu))
     // with mean vector mu, covariance matrix Sigma, and dimension d of the random variable

@@ -12,7 +12,7 @@
 
 #include "gaussian_process/kernel_product.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     KernelProduct::KernelProduct(const StationaryKernelPtr& kernel1, const StationaryKernelPtr& kernel2)
     : dimInput_(kernel1->inputDimension()),

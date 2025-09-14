@@ -15,7 +15,7 @@
 
 #include "gaussian_process/stationary_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     class Matern52Kernel : public StationaryKernel
     {

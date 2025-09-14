@@ -21,7 +21,7 @@
 #include "polynomial/Legendre_polynomial_generator.hpp"
 #include "grampc_interface/grampc_interface.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Factorial
     long long factorial(long long n);

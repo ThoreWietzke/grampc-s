@@ -12,7 +12,7 @@
 
 #include "polynomial/multivariate_polynomial.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     MultivariatePolynomial::MultivariatePolynomial(const std::vector<PolynomialConstPtr>& univariatePolynomials, const std::vector<typeRNum>& univariateSquaredNorm)
         : polynomials_(univariatePolynomials),

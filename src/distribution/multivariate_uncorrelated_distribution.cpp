@@ -12,7 +12,7 @@
 
 #include "distribution/multivariate_uncorrelated_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     MultivariateDistribution::MultivariateDistribution(const std::vector<DistributionPtr>& distributions)
         : Distribution(numberOfDimensions(distributions)),

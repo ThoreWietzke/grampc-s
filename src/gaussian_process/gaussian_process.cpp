@@ -12,7 +12,7 @@
 
 #include "gaussian_process/gaussian_process.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     GaussianProcess::GaussianProcess(const GaussianProcessData& data, StationaryKernelConstPtr kernel, const std::vector<bool>& stateDependency, const std::vector<bool>& controlDependency)
     : inputDim_(data.inputDimension),

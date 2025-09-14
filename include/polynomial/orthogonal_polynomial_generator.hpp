@@ -15,7 +15,7 @@
 
 #include "polynomial.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Generator for a family of orthogonal univariate polynomials
     class OrthogonalPolynomialGenerator

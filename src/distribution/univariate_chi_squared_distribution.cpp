@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_chi_squared_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateChiSquaredDistribution::UnivariateChiSquaredDistribution(typeRNum n)
         : Distribution(Vector::Constant(1, 1, n), 

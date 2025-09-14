@@ -12,7 +12,7 @@
 
 #include "point_transformation/composed_quadrature.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     ComposedQuadrature::ComposedQuadrature(typeInt dimX, typeInt dimY, const std::vector<PolynomialFamily>& polyFamily, const Eigen::Ref<const Eigen::Vector<typeInt, Eigen::Dynamic>>& quadratureOrder)
       : dimX_(dimX),

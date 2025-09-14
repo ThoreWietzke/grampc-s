@@ -12,7 +12,7 @@
 
 #include "problem_description/monte_carlo_problem_description.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     MonteCarloProblemDescription::MonteCarloProblemDescription(ProblemDescriptionPtr problemDescription, PointTransformationPtr pointTransformation)
         : numSigmaPoints_(pointTransformation->numberOfPoints()),

@@ -12,7 +12,7 @@
 
 #include "distribution/univariate_lognormal_distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     UnivariateLognormalDistribution::UnivariateLognormalDistribution(typeRNum mu, typeRNum sigma)
         : Distribution(Vector::Constant(1, 1, std::exp(mu + 0.5 * sigma * sigma)), 

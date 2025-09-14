@@ -16,7 +16,7 @@
 #include "point_transformation.hpp"
 #include "util/grampc_s_util.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Point transformaiton using Stirling's interpolation of second order
     class StirlingInterpolationSecondOrder : public PointTransformation

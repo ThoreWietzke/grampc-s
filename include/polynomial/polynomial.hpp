@@ -15,7 +15,7 @@
 
 #include "util/grampc_s_constants.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // A univariate polynomial defined by its coefficients. The first coefficient defines the monomial of order 0, the last coefficient defines the monomial of the highest order
     class Polynomial

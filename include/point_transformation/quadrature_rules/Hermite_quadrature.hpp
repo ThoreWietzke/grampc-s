@@ -16,7 +16,7 @@
 #include "quadrature_rule.hpp"
 
 
-namespace grampc
+namespace grampc_s
 {
     // Gauss–Hermite quadrature for a univariate Gaussian distribution, the measures of the Hermite polynomials is 1/sqrt(2*pi) * exp(-x^2 / 2)
     class HermiteQuadrature : public QuadratureRule

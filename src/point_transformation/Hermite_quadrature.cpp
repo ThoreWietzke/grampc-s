@@ -13,7 +13,7 @@
 #include <unsupported/Eigen/Polynomials>
 #include "point_transformation/quadrature_rules//Hermite_quadrature.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     HermiteQuadrature::HermiteQuadrature(typeInt quadratureOrder)
       : roots_(quadratureOrder),

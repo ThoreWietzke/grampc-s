@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate gamma distribution p(x) = exp(-x/beta) / (beta^alpha * gamma(alpha)) * x^(alpha - 1) with x > 0, alpha > 0, beta > 0
     class UnivariateGammaDistribution : public Distribution

@@ -12,7 +12,7 @@
 
 #include "gaussian_process/kernel_sum.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     KernelSum::KernelSum(const std::vector<StationaryKernelPtr>& kernels)
     : dimInput_(kernels[0]->inputDimension()),

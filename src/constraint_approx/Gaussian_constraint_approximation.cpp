@@ -12,7 +12,7 @@
 
 #include "constraint_approx/Gaussian_constraint_approximation.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     GaussianConstraintApproximation::GaussianConstraintApproximation(const Vector& probabilities)
         : integral_vec_{

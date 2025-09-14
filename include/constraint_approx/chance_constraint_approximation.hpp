@@ -16,7 +16,7 @@
 #include "grampc_interface/grampc_interface.hpp"
 #include "util/grampc_s_constants.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Approximation of a chance constraint of the form z * sqrt(Var{h}) + E{h}
     class ChanceConstraintApproximation

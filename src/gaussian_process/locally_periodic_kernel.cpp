@@ -12,7 +12,7 @@
 
 #include "gaussian_process/locally_periodic_kernel.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     LocallyPeriodicKernel::LocallyPeriodicKernel(typeInt dimInput, typeRNum sigma, const std::vector<typeRNum>& lengthScale, const std::vector<typeRNum>& period)
     : dimInput_(dimInput),

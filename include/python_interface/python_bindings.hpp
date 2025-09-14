@@ -18,7 +18,7 @@ void init_kernel(py::module_ &);
 void init_polynomial(py::module &);
 
 template <typename Class>
-void problem_methods(py::class_<Class, grampc::ProblemDescription, std::shared_ptr<Class>> &cls)
+void problem_methods(py::class_<Class, grampc_s::ProblemDescription, std::shared_ptr<Class>> &cls)
 {
     cls.def("ffct", &Class::ffct);
     cls.def("dfdx_vec", &Class::dfdx_vec);

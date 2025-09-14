@@ -16,7 +16,7 @@
 #include <random>
 #include "distribution.hpp"
 
-namespace grampc
+namespace grampc_s
 {
     // Univariate log-normal distribution p(x) = 1/(sigma * x * sqrt(2*pi)) * exp(−(ln(x)-mu)^2 / (2*sigma^2)) for x > 0
     class UnivariateLognormalDistribution : public Distribution
