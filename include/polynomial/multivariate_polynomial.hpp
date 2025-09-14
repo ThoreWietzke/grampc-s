@@ -32,10 +32,10 @@ namespace grampc
         void setPolynomials(std::vector<PolynomialConstPtr>& univariatePolynomials, std::vector<typeRNum>& univariateSquaredNorm);
 
         // Get polynomials
-        const std::vector<PolynomialConstPtr>& polynomials() const;
+        const std::vector<PolynomialConstPtr>& getPolynomials() const;
 
         // Get one polynomial
-        PolynomialConstPtr polynomials(typeInt index) const;
+        PolynomialConstPtr getPolynomial(typeInt index) const;
 
         // Get number of variables
         typeInt numVariables() const;

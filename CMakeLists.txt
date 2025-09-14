@@ -22,19 +22,29 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 # link_directories should treat paths as relative to the source directory
 cmake_policy(SET CMP0015 NEW)
 
+if (MSVC)
+    add_compile_options(/wd4244)
+endif()
+
 # Eigen 3.4.90 is required
-find_package(Eigen3 3.4.90 REQUIRED NO_MODULE)
+find_package(Eigen3 3.4 REQUIRED NO_MODULE)
+find_package(Python COMPONENTS Interpreter Development REQUIRED)
+find_package(pybind11 REQUIRED)
 
 include_directories(
 	include
 	libs/grampc/include
-	${EIGEN3_INCLUDE_DIR}
 )
 
 # Add library and link Eigen
 add_library(grampc-s)
-target_link_libraries(grampc-s Eigen3::Eigen)
+target_link_libraries(grampc-s PRIVATE Eigen3::Eigen)
 
-add_subdirectory(examples)
+pybind11_add_module(_core MODULE)
+target_link_libraries(_core PRIVATE Eigen3::Eigen grampc-s)
+
+# add_subdirectory(examples)
 add_subdirectory(libs)
 add_subdirectory(src)
+
+install(TARGETS _core LIBRARY DESTINATION grampc_s)

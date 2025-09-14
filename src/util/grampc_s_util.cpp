@@ -97,48 +97,4 @@ namespace grampc
             }
         }
     }
-
-    void writeTrajectoriesToFile(GrampcPtr solver, typeInt numberOfStates)
-    {
-        const typeGRAMPCparam *par = solver->getParameters();
-        typeRNum tempConstraint[par->Nh];
-
-        // open output files
-        std::ofstream tout("tvec.txt");
-        std::ofstream xout("xvec.txt");
-        std::ofstream uout("uvec.txt");
-        std::ofstream dimOut("dim.txt");
-
-        // write dimensions
-        dimOut << "VariableName,Data" << std::endl;
-        dimOut << "Nx," << numberOfStates << std::endl;
-        dimOut << "Nu," << par->Nu << std::endl;
-
-        // write data
-        for(typeInt i = 0; i < solver->getOptions()->Nhor; ++i)
-        {
-            // time
-            tout << solver->getWorkspace()->t[i] << std::endl;
-
-            // state
-            for (typeInt j = 0; j < par->Nx; ++j)
-            {
-                xout << solver->getWorkspace()->x[i * par->Nx + j] << "\t";
-            }
-            xout << std::endl;
-
-            // control
-            for (typeInt j = 0; j < par->Nu; ++j)
-            {
-                uout << solver->getWorkspace()->u[i * par->Nu + j] << "\t";
-            }
-            uout << std::endl;
-        }
-
-        // close files
-        dimOut.close();
-        uout.close();
-        xout.close();
-        tout.close();
-    }
 }

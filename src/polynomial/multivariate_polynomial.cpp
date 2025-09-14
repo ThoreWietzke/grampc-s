@@ -50,12 +50,12 @@ namespace grampc
         }
     }
 
-    const std::vector<PolynomialConstPtr> &MultivariatePolynomial::polynomials() const
+    const std::vector<PolynomialConstPtr> &MultivariatePolynomial::getPolynomials() const
     {
         return polynomials_;
     }
 
-    PolynomialConstPtr MultivariatePolynomial::polynomials(int index) const
+    PolynomialConstPtr MultivariatePolynomial::getPolynomial(int index) const
     {
         return polynomials_[index];
     }
