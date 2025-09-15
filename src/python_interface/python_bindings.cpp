@@ -9,13 +9,13 @@ PYBIND11_MODULE(_core, m)
     py::module_ m_distributions = m.def_submodule("distributions");
     py::module_ m_constraints = m.def_submodule("constraints");
     py::module_ m_transforms = m.def_submodule("transformations");
-    py::module_ m_problem_descriptions = m.def_submodule("problem_descriptions");
+    // py::module_ m_problem_descriptions = m.def_submodule("problem_descriptions");
     py::module_ m_gaussian_process = m.def_submodule("gaussian_process");
 
     init_distributions(m_distributions);
     init_constraints(m_constraints);
     init_transformations(m_transforms);
-    init_problem_descriptions(m_problem_descriptions);
+    // init_problem_descriptions(m_problem_descriptions);
     init_gaussian_process(m_gaussian_process);
 
     py::class_<Simulator>(m, "Simulator")
