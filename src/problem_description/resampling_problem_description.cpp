@@ -100,7 +100,7 @@ namespace grampc_s
         *NgT = 0;
     }
 
-    void ResamplingProblemDescription::ffct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p)
+    void ResamplingProblemDescription::ffct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, const typeGRAMPCparam *param)
     {
         Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
 
@@ -120,7 +120,7 @@ namespace grampc_s
         // Transform points
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->ffct(pointsTransformed_.col(i), t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->ffct(pointsTransformed_.col(i), t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_), param);
         }
 
         // Cross-covariance between initial points and transformed points
@@ -138,7 +138,7 @@ namespace grampc_s
         //std::cout << "d_cov: " << d_cov << std::endl << std::endl; 
     }
 
-    void ResamplingProblemDescription::dfdx_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef adj, VectorConstRef u, VectorConstRef p)
+    void ResamplingProblemDescription::dfdx_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef adj, const typeGRAMPCparam *param)
     {   
         // Mapping of the input covariance
         Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
@@ -162,7 +162,7 @@ namespace grampc_s
         // Transform points
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->ffct(pointsTransformed_.col(i), t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->ffct(pointsTransformed_.col(i), t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_), param);
         }
 
         // d(d_mean_state)/d(mean_state)
@@ -170,8 +170,24 @@ namespace grampc_s
 
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->dfdx_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), t, pointsInitial_.col(i), dmean_dpoints_vec.segment(i*numStates_, numStates_), u , pointsInitial_.col(i).segment(numStates_, numParams_));
-            problemDescription_->dfdp_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_ + numStates_, numParams_), t, pointsInitial_.col(i), dmean_dpoints_vec.segment(i*numStates_, numStates_), u , pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->dfdx_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_),
+                dmean_dpoints_vec.segment(i*numStates_, numStates_),
+                param
+            );
+            problemDescription_->dfdp_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_ + numStates_, numParams_), 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                dmean_dpoints_vec.segment(i*numStates_, numStates_),
+                param
+            );
         }
         out.segment(0, numStates_) = pointTransformation_->dpoints_dmean_vec(temp_vec_pointDim_numPoints_);
 
@@ -183,8 +199,24 @@ namespace grampc_s
         dcov_dPointsY_ = pointTransformation_->dcov_dpointsY_vec(pointsInitial_, adjCov);
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->dfdx_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), t, pointsInitial_.col(i), dcov_dPointsY_.segment(i*numStates_, numStates_), u , pointsInitial_.col(i).segment(numStates_, numParams_));
-            problemDescription_->dfdp_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_ + numStates_, numParams_), t, pointsInitial_.col(i), dcov_dPointsY_.segment(i*numStates_, numStates_), u , pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->dfdx_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_),
+                dcov_dPointsY_.segment(i*numStates_, numStates_), 
+                param
+            );
+            problemDescription_->dfdp_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_ + numStates_, numParams_), 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_),
+                dcov_dPointsY_.segment(i*numStates_, numStates_), 
+                param
+            );
         }
         temp_vec_pointDim_numPoints_ += pointTransformation_->dcov_dpointsX_vec(pointsTransformed_, adjCov);
         out.segment(0, numStates_) += pointTransformation_->dpoints_dmean_vec(temp_vec_pointDim_numPoints_);
@@ -195,7 +227,7 @@ namespace grampc_s
         //std::cout << "dd_cov: " << std::endl << dd_cov << std::endl << std::endl;      
     }
 
-    void ResamplingProblemDescription::dfdu_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef adj, VectorConstRef u, VectorConstRef p)
+    void ResamplingProblemDescription::dfdu_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef adj, const typeGRAMPCparam *param)
     {
         // Mapping of the inputs
         Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
@@ -219,7 +251,15 @@ namespace grampc_s
         const Vector& dmean_dpoints_vec = pointTransformation_->dmean_dpoints_vec(adj.segment(0, numStates_));
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->dfdu_vec(temp_vec_numInputs_, t, pointsInitial_.col(i), dmean_dpoints_vec.segment(i*numStates_, numStates_), u , pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->dfdu_vec(
+                temp_vec_numInputs_, 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                dmean_dpoints_vec.segment(i*numStates_, numStates_), 
+                param
+            );
             out += temp_vec_numInputs_;
         }
 
@@ -227,44 +267,185 @@ namespace grampc_s
         dcov_dPointsY_ = pointTransformation_->dcov_dpointsY_vec(pointsInitial_, adjCov);
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->dfdu_vec(temp_vec_numInputs_, t, pointsInitial_.col(i), dcov_dPointsY_.segment(i*numStates_, numStates_), u , pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->dfdu_vec(
+                temp_vec_numInputs_, 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                dcov_dPointsY_.segment(i*numStates_, numStates_),
+                param
+            );
             out += temp_vec_numInputs_;
         }
 
         //std::cout << "outVec: "  << std::endl << outVec << std::endl  << std::endl;
     }
 
-    void ResamplingProblemDescription::lfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef xdes, VectorConstRef udes)
+    void ResamplingProblemDescription::lfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, const typeGRAMPCparam *param)
     {
-        problemDescription_->lfct(out, t, x, u, p, xdes, udes);
+        Eigen::Map<const Vector> stateMean(x.data(), numStates_);
+        Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
+
+        // Covariance matrix of states and parameter, bottom right corner is set in compute_x0_and_p0() and top right corner is not read
+        covStateAndParam_.leftCols(numStates_) = cov;
+
+        // Mean and Cholesky decomposition of the covariance matrix
+        meanStateAndParam_.topRows(numStates_) = stateMean;
+        const Matrix& covCholStateAndParam_ = llt_.compute(covStateAndParam_).matrixLLT();
+
+        // Generate points
+        const Matrix& pointsInitial_ = pointTransformation_->points(meanStateAndParam_, covCholStateAndParam_);
+        for(typeInt i = 0; i < numSigmaPoints_; ++i)
+        {
+            // cost function
+            problemDescription_->lfct(pointsTransformed_.col(i), t, pointsInitial_.col(i).head(numStates_), u, pointsInitial_.col(i).segment(numStates_, numParams_), param);
+        }
+        // compute mean of cost function, mean1D since the cost is a scalar function and only the first element is set
+        out[0] = pointTransformation_->mean1D(pointsTransformed_.row(0));
     }
 
-    void ResamplingProblemDescription::dldx(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef xdes, VectorConstRef udes)
+    void ResamplingProblemDescription::dldx(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, const typeGRAMPCparam *param)
     {
-        problemDescription_->dldx(out, t, x, u, p, xdes, udes);
+        Eigen::Map<const Vector> stateMean(x.data(), numStates_);
+        Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
+
+        // Mapping of the outputs
+        Eigen::Map<Vector> out_mean(out.data(), numStates_);
+        Eigen::Map<Matrix> out_cov(out.data() + numStates_, pointDim_, numStates_);
+
+        // Covariance matrix of states and parameter, bottom right corner is set in compute_x0_and_p0() and top right corner is not read
+        covStateAndParam_.leftCols(numStates_) = cov;
+
+        // Mean and Cholesky decomposition of the covariance matrix
+        meanStateAndParam_.topRows(numStates_) = stateMean;
+        const Matrix& covCholStateAndParam_ = llt_.compute(covStateAndParam_).matrixLLT();
+
+        // Generate points
+        const Matrix& pointsInitial_ = pointTransformation_->points(meanStateAndParam_, covCholStateAndParam_);
+
+        for(typeInt i = 0; i < numSigmaPoints_; ++i)
+        {
+            // cost function
+            problemDescription_->dldx(pointsTransformed_.col(i), t, pointsInitial_.col(i).head(numStates_), u, pointsInitial_.col(i).segment(numStates_, numParams_), param);
+            // weight_i * Y_i
+            temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_) = dmean1D_dPoints_(i) * pointsTransformed_.col(i);
+        }
+
+        // sum(weight_i * Y_i)
+        out_mean = pointTransformation_->mean(pointsTransformed_);
+        // sum(weight_i * Y_i * dX/dvec(cov))
+        out_cov = pointTransformation_->dpoints_dcov_vec(covCholStateAndParam_, temp_vec_pointDim_numPoints_);
     }
 
-    void ResamplingProblemDescription::dldu(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef xdes, VectorConstRef udes)
+    void ResamplingProblemDescription::dldu(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, const typeGRAMPCparam *param)
     {
-        problemDescription_->dldu(out, t, x, u, p, xdes, udes);
+        Eigen::Map<const Vector> stateMean(x.data(), numStates_);
+        Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
+
+        // Mapping of the outputs
+        Eigen::Map<Vector> out_mean(out.data(), numStates_);
+
+        // Covariance matrix of states and parameter, bottom right corner is set in compute_x0_and_p0() and top right corner is not read
+        covStateAndParam_.leftCols(numStates_) = cov;
+
+        // Mean and Cholesky decomposition of the covariance matrix
+        meanStateAndParam_.topRows(numStates_) = stateMean;
+        const Matrix& covCholStateAndParam_ = llt_.compute(covStateAndParam_).matrixLLT();
+
+        // Generate points
+        const Matrix& pointsInitial_ = pointTransformation_->points(meanStateAndParam_, covCholStateAndParam_);
+
+        for(typeInt i = 0; i < numSigmaPoints_; ++i)
+        {
+            // cost function
+            problemDescription_->dldu(pointsTransformed_.col(i), t, pointsInitial_.col(i).head(numStates_), u, pointsInitial_.col(i).segment(numStates_, numParams_), param);
+        }
+        // Time derivative of the mean
+        out_mean = pointTransformation_->mean(pointsTransformed_);
     }
 
-    void ResamplingProblemDescription::Vfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef xdes)
+    void ResamplingProblemDescription::Vfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, const typeGRAMPCparam *param)
     {
-        problemDescription_->Vfct(out, t, x, p, xdes);
+        Eigen::Map<const Vector> stateMean(x.data(), numStates_);
+        Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
+
+        // Covariance matrix of states and parameter, bottom right corner is set in compute_x0_and_p0() and top right corner is not read
+        covStateAndParam_.leftCols(numStates_) = cov;
+
+        // Mean and Cholesky decomposition of the covariance matrix
+        meanStateAndParam_.topRows(numStates_) = stateMean;
+        const Matrix& covCholStateAndParam_ = llt_.compute(covStateAndParam_).matrixLLT();
+
+        // Generate points
+        const Matrix& pointsInitial_ = pointTransformation_->points(meanStateAndParam_, covCholStateAndParam_);
+        for(typeInt i = 0; i < numSigmaPoints_; ++i)
+        {
+            // cost function
+            problemDescription_->Vfct(pointsTransformed_.col(i), t, pointsInitial_.col(i).head(numStates_), pointsInitial_.col(i).segment(numStates_, numParams_), param);
+        }
+        // compute mean of cost function
+        out[0] = pointTransformation_->mean1D(pointsTransformed_.row(0));
     }
 
-    void ResamplingProblemDescription::dVdx(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef xdes)
+    void ResamplingProblemDescription::dVdx(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, const typeGRAMPCparam *param)
     {
-        problemDescription_->dVdx(out, t, x, p, xdes);
+        Eigen::Map<const Vector> stateMean(x.data(), numStates_);
+        Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
+
+        // Mapping of the outputs
+        Eigen::Map<Vector> out_mean(out.data(), numStates_);
+        Eigen::Map<Matrix> out_cov(out.data() + numStates_, pointDim_, numStates_);
+
+        // Covariance matrix of states and parameter, bottom right corner is set in compute_x0_and_p0() and top right corner is not read
+        covStateAndParam_.leftCols(numStates_) = cov;
+
+        // Mean and Cholesky decomposition of the covariance matrix
+        meanStateAndParam_.topRows(numStates_) = stateMean;
+        const Matrix& covCholStateAndParam_ = llt_.compute(covStateAndParam_).matrixLLT();
+
+        // Generate points
+        const Matrix& pointsInitial_ = pointTransformation_->points(meanStateAndParam_, covCholStateAndParam_);
+
+        for(typeInt i = 0; i < numSigmaPoints_; ++i)
+        {
+            // cost function
+            problemDescription_->dVdx(pointsTransformed_.col(i), t, pointsInitial_.col(i).head(numStates_), pointsInitial_.col(i).segment(numStates_, numParams_), param);
+            // weight_i * Y_i
+            temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_) = dmean1D_dPoints_(i) * pointsTransformed_.col(i);
+        }
+
+        // sum(weight_i * Y_i)
+        out_mean = pointTransformation_->mean(pointsTransformed_);
+        // sum(weight_i * Y_i * dX/dvec(cov))
+        out_cov = pointTransformation_->dpoints_dcov_vec(covCholStateAndParam_, temp_vec_pointDim_numPoints_);
     }
 
-    void ResamplingProblemDescription::dVdT(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef xdes)
+    void ResamplingProblemDescription::dVdT(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, const typeGRAMPCparam *param)
     {
-       problemDescription_->dVdT(out, t, x, p, xdes);
+        Eigen::Map<const Vector> stateMean(x.data(), numStates_);
+        Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
+
+        // Covariance matrix of states and parameter, bottom right corner is set in compute_x0_and_p0() and top right corner is not read
+        covStateAndParam_.leftCols(numStates_) = cov;
+
+        // Mean and Cholesky decomposition of the covariance matrix
+        meanStateAndParam_.topRows(numStates_) = stateMean;
+        const Matrix& covCholStateAndParam_ = llt_.compute(covStateAndParam_).matrixLLT();
+
+        // Generate points
+        const Matrix& pointsInitial_ = pointTransformation_->points(meanStateAndParam_, covCholStateAndParam_);
+
+        for(typeInt i = 0; i < numSigmaPoints_; ++i)
+        {
+            // cost function
+            problemDescription_->dVdT(pointsTransformed_.col(i), t, pointsInitial_.col(i).head(numStates_), pointsInitial_.col(i).segment(numStates_, numParams_), param);
+        }
+        // Time derivative of the mean
+        out[0] = pointTransformation_->mean1D(pointsTransformed_.row(0));
     }
 
-    void ResamplingProblemDescription::hfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p)
+    void ResamplingProblemDescription::hfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, const typeGRAMPCparam *param)
     {
         // Mapping of the inputs
         Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
@@ -282,7 +463,7 @@ namespace grampc_s
         // Evaluate constraints for each sigma point
         for (typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->hfct(constraintMatrix_.col(i), t, pointsInitial_.col(i), u,  pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->hfct(constraintMatrix_.col(i), t, pointsInitial_.col(i), u,  pointsInitial_.col(i).segment(numStates_, numParams_), param);
         }
             
         // Compute tightened constraints
@@ -296,7 +477,7 @@ namespace grampc_s
         }
     }
 
-    void ResamplingProblemDescription::dhdx_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef vec)
+    void ResamplingProblemDescription::dhdx_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef vec, const typeGRAMPCparam *param)
     {
         // Mapping of the outputs
         Eigen::Map<Matrix> outCov(out.data() + numStates_, pointDim_, numStates_);
@@ -314,14 +495,30 @@ namespace grampc_s
         // Derivative of the tightened constraints with respect to the states
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->dhdx_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_), constraintVec_.col(i));
-            problemDescription_->dhdp_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_ + numStates_, numParams_), t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_), constraintVec_.col(i));
+            problemDescription_->dhdx_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                constraintVec_.col(i),
+                param
+            );
+            problemDescription_->dhdp_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_ + numStates_, numParams_), 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                constraintVec_.col(i),
+                param
+            );
         }
         out.segment(0, numStates_) = pointTransformation_->dpoints_dmean_vec(temp_vec_pointDim_numPoints_);
         outCov = pointTransformation_->dpoints_dcov_vec(covCholStateAndParam_, temp_vec_pointDim_numPoints_);
     }
 
-    void ResamplingProblemDescription::dhdu_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef vec)
+    void ResamplingProblemDescription::dhdu_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef u, VectorConstRef p, VectorConstRef vec, const typeGRAMPCparam *param)
     {
         out.setZero();
 
@@ -332,12 +529,20 @@ namespace grampc_s
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
             // Derivative of the constraint with respect to the input
-            problemDescription_->dhdu_vec(temp_vec_numInputs_, t, pointsInitial_.col(i), u, pointsInitial_.col(i).segment(numStates_, numParams_), constraintVec_.col(i));
+            problemDescription_->dhdu_vec(
+                temp_vec_numInputs_, 
+                t, 
+                pointsInitial_.col(i), 
+                u, 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                constraintVec_.col(i),
+                param
+            );
             out += temp_vec_numInputs_;
         }
     }
 
-    void ResamplingProblemDescription::hTfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p)
+    void ResamplingProblemDescription::hTfct(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, const typeGRAMPCparam *param)
     {
         // Mapping of the inputs
         Eigen::Map<const Matrix> cov(x.data() + numStates_, pointDim_, numStates_);
@@ -355,7 +560,7 @@ namespace grampc_s
         // Evaluate constraints for each sigma point
         for (typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->hTfct(terminalConstraintMatrix_.col(i), t, pointsInitial_.col(i), pointsInitial_.col(i).segment(numStates_, numParams_));
+            problemDescription_->hTfct(terminalConstraintMatrix_.col(i), t, pointsInitial_.col(i), pointsInitial_.col(i).segment(numStates_, numParams_), param);
         }
             
         // Compute tightened constraints
@@ -369,7 +574,7 @@ namespace grampc_s
         }
     }
 
-    void ResamplingProblemDescription::dhTdx_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef vec)
+    void ResamplingProblemDescription::dhTdx_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef vec, const typeGRAMPCparam *param)
     {
         // Mapping of the output covariance
         Eigen::Map<Matrix> outCov(out.data() + numStates_, pointDim_, numStates_);
@@ -387,14 +592,27 @@ namespace grampc_s
         // Derivative of the tightened constraints with respect to the states
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
-            problemDescription_->dhTdx_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), t, pointsInitial_.col(i), pointsInitial_.col(i).segment(numStates_, numParams_), terminalConstraintVec_.col(i));
-            problemDescription_->dhTdp_vec(temp_vec_pointDim_numPoints_.segment(i*pointDim_+numStates_, numParams_), t, pointsInitial_.col(i), pointsInitial_.col(i).segment(numStates_, numParams_), terminalConstraintVec_.col(i));
+            problemDescription_->dhTdx_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_, numStates_), 
+                t, pointsInitial_.col(i), 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                terminalConstraintVec_.col(i),
+                param
+            );
+            problemDescription_->dhTdp_vec(
+                temp_vec_pointDim_numPoints_.segment(i*pointDim_+numStates_, numParams_), 
+                t, 
+                pointsInitial_.col(i), 
+                pointsInitial_.col(i).segment(numStates_, numParams_), 
+                terminalConstraintVec_.col(i),
+                param
+            );
         }
         out.segment(0, numStates_) = pointTransformation_->dpoints_dmean_vec(temp_vec_pointDim_numPoints_);
         outCov = pointTransformation_->dpoints_dcov_vec(covCholStateAndParam_, temp_vec_pointDim_numPoints_);
     }
 
-    void ResamplingProblemDescription::dhTdT_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef vec)
+    void ResamplingProblemDescription::dhTdT_vec(VectorRef out, ctypeRNum t, VectorConstRef x, VectorConstRef p, VectorConstRef vec, const typeGRAMPCparam *param)
     {
         out[0] = 0.0;
 
@@ -405,7 +623,7 @@ namespace grampc_s
         for(typeInt i = 0; i < numSigmaPoints_; ++i)
         {
             // Derivative of the constraint with respect to the prediction horizon
-            problemDescription_->dhTdT_vec(tempScalar_, t, pointsInitial_.col(i), pointsInitial_.col(i).segment(numStates_, numParams_), terminalConstraintVec_.col(i));
+            problemDescription_->dhTdT_vec(tempScalar_, t, pointsInitial_.col(i), pointsInitial_.col(i).segment(numStates_, numParams_), terminalConstraintVec_.col(i), param);
             out[0] += tempScalar_(0);
         }
     }

@@ -39,7 +39,7 @@ namespace grampc_s
     private:
         typeInt numDistributions_;
         std::vector<DistributionPtr> distributions_;
-        Vector dimensionVec_;
+        IntVector dimensionVec_;
         mutable Vector sample_;
     };
 

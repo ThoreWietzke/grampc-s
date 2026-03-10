@@ -63,7 +63,7 @@ namespace grampc_s
         // Compute norms of the polynomials
         for(int i = 0; i < maxOrder + 1; ++ i)
         {
-            hermiteSquaredNorm[i] = factorial(i);
+            hermiteSquaredNorm[i] = (typeRNum) factorial(i);
         }
     }
 
@@ -81,6 +81,6 @@ namespace grampc_s
 
     typeInt HermitePolynomialGenerator::getMaximumOrder() const
     {
-        return hermitePolynomials.size() - 1;
+        return (typeInt) hermitePolynomials.size() - 1;
     }
 }

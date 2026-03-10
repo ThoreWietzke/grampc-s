@@ -18,7 +18,7 @@ namespace grampc_s
     : dimX_(dimX),
       dimY_(dimY),
       stepSize_(stepSize),
-      numUncertainVariables_(std::count(considerUncertain.begin(), considerUncertain.end(), true)),
+      numUncertainVariables_((typeInt) std::count(considerUncertain.begin(), considerUncertain.end(), true)),
       numPoints_(2*numUncertainVariables_ + 1),
       normalizedPoints_(dimX_, numPoints_),
       points_(dimX_, numPoints_),
@@ -217,7 +217,8 @@ namespace grampc_s
 
     const Matrix& StirlingInterpolationFirstOrder::dpoints_dcov_vec(MatrixConstRef covCholesky, VectorConstRef vec)
     {
-        // Vector of points 1 ... n minus Vector of points n+1 ... 2*n
+        // vec is a the vector of possibly transformed sigma points Y. The first dimX points are ignored since they are only the mean, thus no dependence on the Cov.
+        // Collapse the dimX * (2*dimX+1) vector to a dimX * dimX vector, resulting in 2*sqrt(Cov)
         vecDiff_ = vec.segment(dimX_, dimX_ * dimX_).transpose() - vec.segment(dimX_ * (dimX_ + 1 ), dimX_ * dimX_).transpose();
 
         // upper half must be zero for the derivative of the Cholesky decompsition

@@ -9,6 +9,9 @@
 
 bin/
 build/
+.venv/
+
+slprj/
 
 *.cflags
 *.config
@@ -30,9 +33,5 @@ build/
 *.a
 *.cmake
 *.log
-*.aux
-*.pdf
-*.gz
-*.bbl
 *.glg
 *.fig

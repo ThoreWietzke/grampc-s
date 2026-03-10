@@ -12,7 +12,7 @@
 
 #include "grampc_interface/grampc_interface.hpp"
 
-namespace grampc
+namespace grampc_s
 {
 	Grampc::Grampc(ProblemDescriptionPtr problem_description)
 		: problem_description_(problem_description)

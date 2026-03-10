@@ -16,7 +16,7 @@ namespace grampc_s
 {
     MultivariateDistribution::MultivariateDistribution(const std::vector<DistributionPtr>& distributions)
         : Distribution(numberOfDimensions(distributions)),
-          numDistributions_(distributions.size()),
+          numDistributions_((typeInt) distributions.size()),
           distributions_(distributions),
           dimensionVec_(numDistributions_),
           sample_(dim_)
